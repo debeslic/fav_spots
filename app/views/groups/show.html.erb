@@ -1,15 +1,27 @@
 <div class="page-header">
-  <h3>Group #<%= @group.id %></h3>
+  <h3>
+    <!-- <img src="<%= @group.photo %>"> -->
+    <%= @group.name %>
+  </h3>
 </div>
 
 <div class="row">
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
-      <dt>Name</dt>
-      <dd><%= @group.name %></dd>
+      <!-- <dt>Name</dt>
+      <dd><%= @group.name %></dd> -->
 
-      <dt>Photo</dt>
-      <dd><%= @group.photo %></dd>
+      <dt>Members -- [[[Make this seperate page]]]</dt>
+      <dd>
+        <% @group.group_enrollments.each do |member| %>
+        <li><%= member.user.email %></li>
+        <% end %>
+
+
+      </dd>
+
+      <dt>Reviews</dt>
+      <dd>Add Panels</dd>
 
     </dl>
 

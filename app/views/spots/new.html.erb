@@ -1,0 +1,109 @@
+<!-- Validation failure messages -->
+<% if @spot.errors.any? %>
+  <% @spot.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Spot</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_spot" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for name -->
+      <div class="form-group">
+        <label for="name" class="control-label">
+          Name
+        </label>
+
+        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @spot.name %>">
+      </div>
+
+      <!-- Label and input for category -->
+      <div class="form-group">
+        <label for="category" class="control-label">
+          Category
+        </label>
+
+        <input type="text" id="category" name="category" placeholder="Category" class="form-control" value="<%= @spot.category %>">
+      </div>
+
+      <!-- Label and input for address -->
+      <div class="form-group">
+        <label for="address" class="control-label">
+          Address
+        </label>
+
+        <input type="text" id="address" name="address" placeholder="Address" class="form-control" value="<%= @spot.address %>">
+      </div>
+
+      <!-- Label and input for latitude -->
+      <div class="form-group">
+        <label for="latitude" class="control-label">
+          Latitude
+        </label>
+
+        <input type="text" id="latitude" name="latitude" placeholder="Latitude" class="form-control" value="<%= @spot.latitude %>">
+      </div>
+
+      <!-- Label and input for longitude -->
+      <div class="form-group">
+        <label for="longitude" class="control-label">
+          Longitude
+        </label>
+
+        <input type="text" id="longitude" name="longitude" placeholder="Longitude" class="form-control" value="<%= @spot.longitude %>">
+      </div>
+
+      <!-- Label and input for photo -->
+      <div class="form-group">
+        <label for="photo" class="control-label">
+          Photo
+        </label>
+
+        <input type="text" id="photo" name="photo" placeholder="Photo" class="form-control" value="<%= @spot.photo %>">
+      </div>
+
+      <!-- Label and input for neighborhood -->
+      <div class="form-group">
+        <label for="neighborhood" class="control-label">
+          Neighborhood
+        </label>
+
+        <input type="text" id="neighborhood" name="neighborhood" placeholder="Neighborhood" class="form-control" value="<%= @spot.neighborhood %>">
+      </div>
+
+      <!-- Label and input for city -->
+      <div class="form-group">
+        <label for="city" class="control-label">
+          City
+        </label>
+
+        <input type="text" id="city" name="city" placeholder="City" class="form-control" value="<%= @spot.city %>">
+      </div>
+
+      <!-- Label and input for phone_number -->
+      <div class="form-group">
+        <label for="phone_number" class="control-label">
+          Phone number
+        </label>
+
+        <input type="text" id="phone_number" name="phone_number" placeholder="Phone number" class="form-control" value="<%= @spot.phone_number %>">
+      </div>
+
+      <button class="btn btn-success">
+        Create Spot
+      </button>
+      or
+      <a href="/spots">Cancel</a>
+    </form>
+  </div>
+</div>

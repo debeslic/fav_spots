@@ -1,0 +1,49 @@
+<div class="page-header">
+  <h3><%= @spot.name %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <!-- <dt>Name</dt>
+      <dd><%= @spot.name %></dd> -->
+
+      <dt>Category</dt>
+      <dd><%= @spot.category %></dd>
+
+      <dt>Address</dt>
+      <dd><%= @spot.address %></dd>
+
+      <dt>Neighborhood</dt>
+      <dd><%= @spot.neighborhood %></dd>
+
+      <dt>City</dt>
+      <dd><%= @spot.city %></dd>
+
+      <dt>Phone number</dt>
+      <dd><%= @spot.phone_number %></dd>
+
+      <!-- <dt>Latitude</dt>
+      <dd><%= @spot.latitude %></dd>
+
+      <dt>Longitude</dt>
+      <dd><%= @spot.longitude %></dd>
+ -->
+      <dt>Photo</dt>
+      <dd><img src ="<%= @spot.photo %>"></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/spots" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/spots/<%= @spot.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_spot/<%= @spot.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

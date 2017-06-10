@@ -10,11 +10,69 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609183647) do
+ActiveRecord::Schema.define(version: 20170609184449) do
+
+  create_table "group_enrollments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.string   "photo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "review_id"
+    t.integer  "user_id"
+    t.integer  "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.integer  "spot_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "spot_id"
+    t.integer  "group_enrollement_id"
+    t.text     "review"
+    t.integer  "rating"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "spot_tags", force: :cascade do |t|
+    t.integer  "spot_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "spots", force: :cascade do |t|
+    t.string   "name"
+    t.string   "category"
+    t.string   "address"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.string   "photo"
+    t.string   "neighborhood"
+    t.string   "city"
+    t.string   "phone_number"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

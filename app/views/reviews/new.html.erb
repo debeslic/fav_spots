@@ -1,0 +1,64 @@
+<!-- Validation failure messages -->
+<% if @review.errors.any? %>
+  <% @review.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Review</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_review" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for spot_id -->
+      <div class="form-group">
+        <label for="spot_id" class="control-label">
+          Spot
+        </label>
+
+        <input type="text" id="spot_id" name="spot_id" placeholder="Spot" class="form-control" value="<%= @review.spot_id %>">
+      </div>
+
+      <!-- Label and input for group_enrollement_id -->
+      <div class="form-group">
+        <label for="group_enrollement_id" class="control-label">
+          Group enrollement
+        </label>
+
+        <input type="text" id="group_enrollement_id" name="group_enrollement_id" placeholder="Group enrollement" class="form-control" value="<%= @review.group_enrollement_id %>">
+      </div>
+
+      <!-- Label and input for review -->
+      <div class="form-group">
+        <label for="review" class="control-label">
+          Review
+        </label>
+
+        <textarea id="review" name="review" placeholder="Review" class="form-control" rows="3"><%= @review.review %></textarea>
+      </div>
+
+      <!-- Label and input for rating -->
+      <div class="form-group">
+        <label for="rating" class="control-label">
+          Rating
+        </label>
+
+        <input type="text" id="rating" name="rating" placeholder="Rating" class="form-control" value="<%= @review.rating %>">
+      </div>
+
+      <button class="btn btn-success">
+        Create Review
+      </button>
+      or
+      <a href="/reviews">Cancel</a>
+    </form>
+  </div>
+</div>

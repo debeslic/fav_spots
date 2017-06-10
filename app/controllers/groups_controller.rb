@@ -1,19 +1,17 @@
 class GroupsController < ApplicationController
   def index
     @groups = Group.all
-
+    @group_enrollments = GroupEnrollment.all
     render("groups/index.html.erb")
   end
 
   def show
     @group = Group.find(params[:id])
-
     render("groups/show.html.erb")
   end
 
   def new
     @group = Group.new
-
     render("groups/new.html.erb")
   end
 
