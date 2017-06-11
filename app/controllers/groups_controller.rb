@@ -9,6 +9,7 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     @group_enrollments = @group.group_enrollments
+    @review = Review.new
     # @reviews = Review.where(:group_enrollement_id => @group_enrollments.id)
     render("groups/show.html.erb")
   end

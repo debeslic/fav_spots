@@ -121,6 +121,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   root to: "groups#index"
+  
   # Routes for the Group resource:
   # CREATE
   get "/groups/new", :controller => "groups", :action => "new"
