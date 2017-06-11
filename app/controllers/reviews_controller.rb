@@ -1,19 +1,16 @@
 class ReviewsController < ApplicationController
   def index
     @reviews = Review.all
-
     render("reviews/index.html.erb")
   end
 
   def show
     @review = Review.find(params[:id])
-
     render("reviews/show.html.erb")
   end
 
   def new
     @review = Review.new
-
     render("reviews/new.html.erb")
   end
 
@@ -21,7 +18,13 @@ class ReviewsController < ApplicationController
     @review = Review.new
 
     @review.spot_id = params[:spot_id]
-    @review.group_enrollement_id = params[:group_enrollement_id]
+
+    @group_id = params[:group_id]
+    @group = Group.find(@group_id)
+    @user_id = current_user.id
+    # @user_id = params[:user_id]
+    @review.group_enrollement_id = @group.group_enrollments.find_by(:user_id => @user_id).id
+
     @review.review = params[:review]
     @review.rating = params[:rating]
 

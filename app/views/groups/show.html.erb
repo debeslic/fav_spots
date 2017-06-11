@@ -14,14 +14,16 @@
       <dt>Members -- [[[Make this seperate page]]]</dt>
       <dd>
         <% @group.group_enrollments.each do |member| %>
-        <li><%= member.user.email %></li>
+        <li><%= member.user.first_name %> <%= member.user.last_name %></li>
         <% end %>
 
 
       </dd>
 
       <dt>Reviews</dt>
-      <dd>Add Panels</dd>
+      <dd>
+        <% @group %>
+      </dd>
 
     </dl>
 

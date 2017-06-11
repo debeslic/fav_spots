@@ -10,7 +10,8 @@
     <table class="table table-striped table-hover">
       <tr>
         <th>Spot</th>
-        <th>Group enrollement</th>
+        <th>Group</th>
+        <th>User</th>
         <th>Review</th>
         <th>Rating</th>
         <th>Actions</th>
@@ -18,8 +19,11 @@
 
       <% @reviews.each do |review| %>
       <tr>
-        <td><%= review.spot_id %></td>
-        <td><%= review.group_enrollement_id %></td>
+        <td>
+          <%= Spot.find(review.spot_id).name %>
+        </td>
+        <td><%= Group.last.name %></td>
+        <td><%= User.last.email %></td>
         <td><%= review.review %></td>
         <td><%= review.rating %></td>
         <td>

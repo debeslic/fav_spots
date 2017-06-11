@@ -2,11 +2,14 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all
     @group_enrollments = GroupEnrollment.all
+
     render("groups/index.html.erb")
   end
 
   def show
     @group = Group.find(params[:id])
+    @group_enrollments = @group.group_enrollments
+    # @reviews = Review.where(:group_enrollement_id => @group_enrollments.id)
     render("groups/show.html.erb")
   end
 

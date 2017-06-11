@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="page-header">
-  <h3>Add Review</h3>
+  <h3>New Review</h3>
 </div>
 
 <div class="row">
@@ -23,24 +23,32 @@
         <label for="spot_id" class="control-label">
           Spot
         </label>
-
-        <input type="text" id="spot_id" name="spot_id" placeholder="Spot" class="form-control" value="<%= @review.spot_id %>">
+          <%= select_tag(:spot_id, options_from_collection_for_select(Spot.all, :id, :name, @review.spot_id), :class => "form-control") %>
+        <!-- <input type="text" id="spot_id" name="spot_id" placeholder="Spot" class="form-control" value="<%= @review.spot_id %>"> -->
       </div>
 
-      <!-- Label and input for group_enrollement_id -->
+      <!-- Label and input for group_id -->
       <div class="form-group">
-        <label for="group_enrollement_id" class="control-label">
-          Group enrollement
+        <label for="group_id" class="control-label">
+          Group
         </label>
-
-        <input type="text" id="group_enrollement_id" name="group_enrollement_id" placeholder="Group enrollement" class="form-control" value="<%= @review.group_enrollement_id %>">
+        <!-- Need to make this a Select Tag -->
+        <input type="text" id="group_id" name="group_id" placeholder="Group" class="form-control" value="<%= @review.group_enrollement_id %>">
       </div>
+
+      <!-- Label and input for user_id -->
+      <!-- <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+        <input type="text" id="user_id" name="user_id" placeholder="User ID" class="form-control" value="<%= @review.group_enrollement_id %>">
+      </div> -->
 
       <!-- Label and input for review -->
       <div class="form-group">
-        <label for="review" class="control-label">
+        <!-- <label for="review" class="control-label">
           Review
-        </label>
+        </label> -->
 
         <textarea id="review" name="review" placeholder="Review" class="form-control" rows="3"><%= @review.review %></textarea>
       </div>
