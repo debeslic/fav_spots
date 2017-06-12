@@ -22,7 +22,7 @@ class GroupEnrollmentsController < ApplicationController
     save_status = @group_enrollment.save
 
     if save_status == true
-      redirect_to("/groups", :notice => "Joined group!")
+      redirect_to("/groups/#{@group_enrollment.group_id}", :notice => "Joined group!")
     else
       render("group_enrollments/new.html.erb")
     end

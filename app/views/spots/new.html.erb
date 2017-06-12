@@ -33,7 +33,15 @@
           Category
         </label>
 
-        <input type="text" id="category" name="category" placeholder="Category" class="form-control" value="<%= @spot.category %>">
+        <select type="text" id="category" name="category" placeholder="Category" class="form-control">>
+          <option value="" disabled selected>Select Location type (i.e. Bar)</option>
+          <option>Cafe</option>
+          <option>Bar</option>
+          <option>Restaurant</option>
+
+        </select>
+
+        <!-- <input type="text" id="category" name="category" placeholder="Category" class="form-control" value="<%= @spot.category %>"> -->
       </div>
 
       <!-- Label and input for address -->
@@ -47,29 +55,18 @@
 
       <!-- Label and input for latitude -->
       <div class="form-group">
-        <label for="latitude" class="control-label">
+        <!-- <label for="latitude" class="control-label">
           Latitude
-        </label>
-
-        <input type="text" id="latitude" name="latitude" placeholder="Latitude" class="form-control" value="<%= @spot.latitude %>">
+        </label> -->
+        <input type="hidden" id="latitude" name="latitude" placeholder="Latitude" class="form-control" value="<%= @spot.latitude %>">
       </div>
 
       <!-- Label and input for longitude -->
       <div class="form-group">
-        <label for="longitude" class="control-label">
+        <!-- <label for="longitude" class="control-label">
           Longitude
-        </label>
-
-        <input type="text" id="longitude" name="longitude" placeholder="Longitude" class="form-control" value="<%= @spot.longitude %>">
-      </div>
-
-      <!-- Label and input for photo -->
-      <div class="form-group">
-        <label for="photo" class="control-label">
-          Photo
-        </label>
-
-        <input type="text" id="photo" name="photo" placeholder="Photo" class="form-control" value="<%= @spot.photo %>">
+        </label> -->
+        <input type="hidden" id="longitude" name="longitude" placeholder="Longitude" class="form-control" value="<%= @spot.longitude %>">
       </div>
 
       <!-- Label and input for neighborhood -->
@@ -98,6 +95,17 @@
 
         <input type="text" id="phone_number" name="phone_number" placeholder="Phone number" class="form-control" value="<%= @spot.phone_number %>">
       </div>
+
+      <!-- Label and input for photo -->
+      <div class="form-group">
+        <label for="photo" class="control-label">
+          Photo
+        </label>
+
+        <input type="text" id="photo" name="photo" placeholder="Photo" class="form-control" value="<%= @spot.photo %>">
+      </div>
+
+
 
       <button class="btn btn-success">
         Create Spot
