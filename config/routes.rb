@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  # Fav Spot aggregation
+  get "/favspots", :controller => "favspot", :action => "index"
+  get "/mygroups", :controller => "mygroups", :action => "index"
+
   # Routes for the Photo resource:
   # CREATE
   get "/photos/new", :controller => "photos", :action => "new"
@@ -121,7 +125,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   root to: "groups#index"
-  
+
   # Routes for the Group resource:
   # CREATE
   get "/groups/new", :controller => "groups", :action => "new"

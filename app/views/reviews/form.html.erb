@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_review" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for spot_id -->
+      <div class="form-group">
+        <label for="spot_id" class="control-label">
+          Spot
+        </label>
+          <%= select_tag(:spot_id, options_from_collection_for_select(Spot.all, :id, :name, @review.spot_id), :class => "form-control") %>
+        <!-- <input type="text" id="spot_id" name="spot_id" placeholder="Spot" class="form-control" value="<%= @review.spot_id %>"> -->
+      </div>
+      <div>or <a href="/spots/new">Add New Spot</a></div>
+
+      <!-- Label and input for group_id -->
+      <div class="form-group">
+        <!-- <label for="group_id" class="control-label">
+          Group
+        </label> -->
+        <!-- Need to make this a Select Tag -->
+        <input type="hidden" id="group_id" name="group_id" placeholder="Group" class="form-control" value="<%= @review.group_enrollement_id %>">
+      </div>
+
+
+      <div class="form-group">
+        <!-- <label for="group_id" class="control-label">
+          Group Enrollment
+        </label> -->
+        <!-- Need to make this a Select Tag -->
+        <input type="hidden" id="group_enrollement_id" name="group_enrollement_id" placeholder="Group" class="form-control" value="<%= @review.group_enrollement_id %>">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <!-- <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+        <input type="text" id="user_id" name="user_id" placeholder="User ID" class="form-control" value="<%= @review.group_enrollement_id %>">
+      </div> -->
+
+      <!-- Label and input for review -->
+      <div class="form-group">
+        <label for="review" class="control-label">
+          Review
+        </label>
+
+        <textarea id="review" name="review" placeholder="Review" class="form-control" rows="3"><%= @review.review %></textarea>
+      </div>
+
+      <!-- Label and input for rating -->
+      <div class="form-group">
+        <label for="rating" class="control-label">
+          Rating
+        </label>
+        <select type="text" id="rating" name="rating" class="form-control" value="<%= @review.rating %>">
+          <option value="" disabled selected>Rating (1 = worst to 5 = best)</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+        <!-- <input type="text" id="rating" name="rating" placeholder="Rating" class="form-control" value="<%= @review.rating %>"> -->
+      </div>
+
+      <button class="btn btn-success">
+        Create Review
+      </button>
+      or
+      <a href="/reviews">Cancel</a>
+    </form>
+  </div>
+</div>

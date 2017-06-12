@@ -1,12 +1,17 @@
 <div class="page-header">
   <h1>
     Spots
-    <a href="/spots/new" class="btn btn-lg btn-success">New Spot</a>
+
   </h1>
 </div>
 
 <div class="row">
   <div class="col-md-12">
+    <a href="/spots/new" class="btn btn-lg btn-default">
+      
+      <i class="fa fa-plus"></i> New Spot
+    </a>
+
     <table class="table table-striped table-hover">
       <tr>
         <th>Photo</th>
@@ -31,7 +36,7 @@
         <td>
           <a href="/spots/<%= spot.id %>" class="btn btn-primary">Details</a>
           <a href="/spots/<%= spot.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_spot/<%= spot.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <!-- <a href="/delete_spot/<%= spot.id %>" class="btn btn-danger" rel="nofollow">Delete</a> -->
         </td>
       </tr>
       <% end %>

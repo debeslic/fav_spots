@@ -1,18 +1,16 @@
+
 <div class="page-header">
   <h1>
-    Groups
+    My Groups
   </h1>
+  <p>Groups that I've joined</p>
 </div>
 
 <div class="row">
-
   <div class="col-md-12">
     <div>
       <a href="/groups/new" class="btn btn-lg btn-default">
         <i class="fa fa-plus"></i> New Group
-      </a>
-      <a href="/mygroups" class="btn btn-lg btn-primary">
-        <i class="glyphicon glyphicon-th-list"></i> My Groups
       </a>
     </div>
 
@@ -25,6 +23,9 @@
       </tr>
 
       <% @groups.each do |group| %>
+
+      <% if group.users.where(:id => current_user.id).exists? %>
+
       <tr>
         <td><a href="/groups/<%= group.id %>">
           <img src="<%= group.photo %>" height=200 width="200" class="img-rounded">
@@ -65,6 +66,7 @@
           <% end %>
         </td>
       </tr>
+      <% end %>
       <% end %>
     </table>
   </div>

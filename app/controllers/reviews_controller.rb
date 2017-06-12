@@ -23,7 +23,8 @@ class ReviewsController < ApplicationController
     @group = Group.find(@group_id)
     @user_id = current_user.id
     # @user_id = params[:user_id]
-    @review.group_enrollement_id = @group.group_enrollments.find_by(:user_id => @user_id).id
+    @group_enrollement = @group.group_enrollments.find_by(:user_id => @user_id)
+    @review.group_enrollement_id = @group_enrollement.id
 
     @review.review = params[:review]
     @review.rating = params[:rating]
@@ -31,7 +32,7 @@ class ReviewsController < ApplicationController
     save_status = @review.save
 
     if save_status == true
-      redirect_to("/reviews/#{@review.id}", :notice => "Review created successfully.")
+      redirect_to("/groups/#{@group.id}", :notice => "Review created successfully.")
     else
       render("reviews/new.html.erb")
     end

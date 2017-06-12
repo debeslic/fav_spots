@@ -1,7 +1,32 @@
 <div class="page-header">
   <h3>
     <!-- <img src="<%= @group.photo %>"> -->
-    <%= @group.name %> <small><a href="/groups/<%= @group.id %>/edit">edit </a></small>
+    <%= @group.name %>
+    <small>
+      <% if @group.group_enrollments.where(:user_id => current_user.id).exists? %>
+      <a href="/groups/<%= @group.id %>/edit">edit </a>
+      <% else %>
+
+      <form action="/create_group_enrollment" method="post">
+        <!-- Hidden input for authenticity token to protect from forgery -->
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+        <!-- Label and input for user_id -->
+        <div class="form-group">
+          <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
+        </div>
+        <!-- Label and input for group_id -->
+        <div class="form-group">
+          <input type="hidden" id="group_id" name="group_id" placeholder="Group" class="form-control" value="<%= @group.id %>">
+        </div>
+
+        <button class="btn btn-primary">
+          Join Group
+        </button>
+      </form>
+
+
+      <% end %>
+    </small>
   </h3>
 </div>
 
@@ -11,17 +36,19 @@
     <!-- <dt>Name</dt>
     <dd><%= @group.name %></dd> -->
 
-  <div class="col-md-9 col-md-offset-1">
-    <h4>Members</h4>
+    <div class="col-md-9 col-md-offset-1">
+      <h4>Members</h4>
+      
+      <% @group.group_enrollments.each do |member| %>
+      <li><%= member.user.first_name %> <%= member.user.last_name %></li>
+      <% end %>
+    </div>
 
-    <% @group.group_enrollments.each do |member| %>
-    <li><%= member.user.first_name %> <%= member.user.last_name %></li>
-    <% end %>
-  </div>
 
-  <div class="col-md-9 col-md-offset-1">
-    <h4>Reviews</h4>
-  </div>
+    <!-- Reviews -->
+    <div class="col-md-9 col-md-offset-1">
+      <h4>Reviews</h4>
+    </div>
 
     <div class="row">
       <div class="col-md-9 col-md-offset-1">
@@ -42,87 +69,143 @@
           <div class="panel-body">
             <ul class="media-list">
               <h4 class="media-heading">
-                <a href="/spots/<%= blurb.spot.id %>"><%= blurb.spot.name %> </a> <small><%= blurb.spot.category %></small>
+                <a href="/spots/<%= blurb.spot.id %>"><%= blurb.spot.name %> </a> <small><%= blurb.spot.category %>, <%= blurb.spot.neighborhood %></small>
               </h4>
+              <li class="media">
+                Rating: <%= blurb.rating %>
+              </li>
+
               <p></p>
-              <p class="media-body">
+              <div class="media-body">
                 <%= blurb.review %>
-              </p>
+              </div>
               <div class="media-right"><img src ="<%= blurb.spot.photo%>" class="img-rounded" height=100 widght=140></div>
+
+
             </ul>
+
+            <!-- Form for Likes  -->
+
+            <% if blurb.group_enrollment.user.id != current_user.id %>
+
+            <% if blurb.likes.where(:user_id => current_user.id).exists? %>
+            <a class="btn btn-link" href="/delete_like/<%= blurb.likes.find_by(:user_id => current_user.id).id %>">
+              <i class="fa fa-heart"></i>
+            </a>
+            <%= blurb.likes.count %> people like this
+            <% else %>
+            <p>
+              <form action="/create_like" method="post">
+                <!-- Hidden input for authenticity token to protect from forgery -->
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+                <!-- Label and input for review_id -->
+                <div class="form-group">
+                  <input type="hidden" id="review_id" name="review_id" placeholder="Review" class="form-control" value="<%= blurb.id %>">
+                </div>
+
+                <!-- Label and input for user_id -->
+                <div class="form-group">
+                  <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
+                </div>
+
+                <!-- Label and input for rating -->
+                <div class="form-group">
+                  <input type="hidden" id="rating" name="rating" placeholder="My rating (if any)" class="form-control" value="">
+                </div>
+
+                <button class="btn btn-link">
+                  <i class="fa fa-heart-o"></i>
+                </button>
+                <%= blurb.likes.count %> people like this
+              </form>
+              <% end %>
+
+              <% else %>
+              <%= blurb.likes.count %> people like this
+              <!-- End for conditional if you created the review -->
+              <% end %>
+
+              <!-- Who Likes this  -->
+
+            </p>
+
           </div>
         </div>
 
         <% end %>
         <% end %>
 
+        <% if @group.group_enrollments.where(:user_id => current_user.id).exists? %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <i class="fa fa-plus"></i> New Review
+          </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <i class="fa fa-plus"></i> New Review
-      </div>
+          <div class="panel-body">
 
-      <div class="panel-body">
+            <form action="/create_review" method="post">
+              <!-- Hidden input for authenticity token to protect from forgery -->
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-      <form action="/create_review" method="post">
-        <!-- Hidden input for authenticity token to protect from forgery -->
-        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+              <!-- Label and input for spot_id -->
+              <div class="form-group">
+                <label for="spot_id" class="control-label">
+                  <h4>Spot</h4>
+                </label>
+                <%= select_tag(:spot_id, options_from_collection_for_select(Spot.all, :id, :name, @review.spot_id), :class => "form-control") %>
+                <!-- <input type="text" id="spot_id" name="spot_id" placeholder="Spot" class="form-control" value="<%= @review.spot_id %>"> -->
+              </div>
+              <div>or <a href="/spots/new">Add New Spot</a></div>
 
-        <!-- Label and input for spot_id -->
-        <div class="form-group">
-          <label for="spot_id" class="control-label">
-            <h4>Spot</h4>
-          </label>
-          <%= select_tag(:spot_id, options_from_collection_for_select(Spot.all, :id, :name, @review.spot_id), :class => "form-control") %>
-          <!-- <input type="text" id="spot_id" name="spot_id" placeholder="Spot" class="form-control" value="<%= @review.spot_id %>"> -->
+              <!-- Label and input for group_id -->
+              <div class="form-group">
+                <input type="hidden" id="group_id" name="group_id" placeholder="Group" class="form-control" value="<%= @group.id %>">
+              </div>
+
+
+              <!-- Label and input for review -->
+              <div class="form-group">
+                <textarea id="review" name="review" placeholder="Write review here..." class="form-control" rows="3"><%= @review.review %></textarea>
+              </div>
+
+              <!-- Label and input for rating -->
+              <div class="form-group">
+                <select type="text" id="rating" name="rating" class="form-control" value="<%= @review.rating %>">
+                  <option value="" disabled selected>Rating (1 = worst to 5 = best)</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+                <!-- <input type="text" id="rating" name="rating" placeholder="Rating (1 = worst to 5 = best)" class="form-control" value="<%= @review.rating %>"> -->
+              </div>
+
+              <button class="btn btn-primary">
+                Create Review
+              </button>
+
+            </form>
+          </div>
         </div>
-        <div>or <a href="/spots/new">Add New Spot</a></div>
-
-        <!-- Label and input for group_id -->
-        <div class="form-group">
-          <input type="hidden" id="group_id" name="group_id" placeholder="Group" class="form-control" value="<%= @group.id %>">
-        </div>
-
-        <!-- Label and input for review -->
-        <div class="form-group">
-          <!-- <label for="review" class="control-label">
-          Review
-        </label> -->
-
-        <textarea id="review" name="review" placeholder="Write review here..." class="form-control" rows="3"><%= @review.review %></textarea>
+        <% end %>
       </div>
 
-      <!-- Label and input for rating -->
-      <div class="form-group">
-        <input type="text" id="rating" name="rating" placeholder="Rating (1 = worst to 5 = best)" class="form-control" value="<%= @review.rating %>">
-      </div>
 
-      <button class="btn btn-primary">
-        Create Review
-      </button>
+    </div>
 
-    </form>
-  </div>
+
+
+
+
+
+    <!-- <a href="/groups/<%= @group.id %>/edit" class="btn btn-primary">
+    Edit Group
+  </a> -->
+  <!-- <a href="/delete_group/<%= @group.id %>" class="btn btn-danger" rel="nofollow">
+  Delete
+</a> -->
 </div>
-</div>
-
-
-  </div>
-
-
-
-
-
-  <div class="btn-group btn-group-justified">
-    <!-- <a href="/groups" class="btn btn-primary">
-      Browse Groups
-    </a> -->
-    <a href="/groups/<%= @group.id %>/edit" class="btn btn-primary">
-      Edit Group
-    </a>
-    <!-- <a href="/delete_group/<%= @group.id %>" class="btn btn-danger" rel="nofollow">
-      Delete
-    </a> -->
-  </div>
 </div>
 </div>

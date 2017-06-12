@@ -10,6 +10,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @group_enrollments = @group.group_enrollments
     @review = Review.new
+    @like = Like.new
     # @reviews = Review.where(:group_enrollement_id => @group_enrollments.id)
     render("groups/show.html.erb")
   end

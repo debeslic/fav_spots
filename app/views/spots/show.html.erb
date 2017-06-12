@@ -1,5 +1,15 @@
 <div class="page-header">
-  <h3><%= @spot.name %></h3>
+  <h3>
+    <%= @spot.name %>
+    <small>
+      <a href="/spots/<%= @spot.id %>/edit">Edit</a>
+    </small>
+  </h3>
+</div>
+
+<div>
+  <ul><a href="/spots">Browse Spots</a></ul>
+  <ul><a href="/favspots">My FavSpots </a></ul>
 </div>
 
 <div class="row">
@@ -35,15 +45,15 @@
     </dl>
 
     <div class="btn-group btn-group-justified">
-      <a href="/spots" class="btn btn-primary">
+      <!-- <a href="/spots" class="btn btn-primary">
         Back
       </a>
       <a href="/spots/<%= @spot.id %>/edit" class="btn btn-warning">
         Edit
-      </a>
-      <a href="/delete_spot/<%= @spot.id %>" class="btn btn-danger" rel="nofollow">
+      </a> -->
+      <!-- <a href="/delete_spot/<%= @spot.id %>" class="btn btn-danger" rel="nofollow">
         Delete
-      </a>
+      </a> -->
     </div>
   </div>
 </div>
